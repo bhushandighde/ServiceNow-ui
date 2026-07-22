@@ -1,12 +1,9 @@
-
+import AppRoutes from "./routes/AppRoutes"
 
 export const App=():any=>{
 
-    return (
-    <>
-    <h1> Service Now</h1>
-    </>
-    )
+    return <AppRoutes />
+    
 }
 
 
