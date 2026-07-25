@@ -28,9 +28,9 @@ const onSubmit = async (data: LoginFormData) => {
     }
 
     console.log("Login successful");
-     
+     console.log("response.UserId" , response.userId);
     // Save JWT
-     login(response.token);    
+     login(response.token, response.userId);    
     // Later we'll navigate to dashboard
     navigate("/dashboard");
   } catch (error) {

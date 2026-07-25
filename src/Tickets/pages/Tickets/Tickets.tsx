@@ -7,7 +7,32 @@ import {Chip, Stack, IconButton} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SearchIcon from "@mui/icons-material/Search"
+import CreateTicketDialog from "../../components/CreateTicketDialog";
+import { Snackbar, Alert } from "@mui/material";
+
+
+
 export const Tickets = () => {
+
+  const [openDialog, setOpenDialog] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState<
+    "success" | "error"
+>("success");
+
+
+const showSuccess = (message: string) => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity("success");
+    setSnackbarOpen(true);
+};
+
+const showError = (message: string) => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity("error");
+    setSnackbarOpen(true);
+};
 const columns: GridColDef[] = [
   {
     field: "id",
@@ -113,7 +138,7 @@ const columns: GridColDef[] = [
         <IconButton
           color="primary"
           size="small"
-          onClick={() => console.log("Edit", params.row)}
+          onClick={() => console.log("Edit")}
         >
           <EditIcon />
         </IconButton>
@@ -121,7 +146,7 @@ const columns: GridColDef[] = [
         <IconButton
           color="error"
           size="small"
-          onClick={() => console.log("Delete", params.row)}
+          onClick={() => console.log("Delete")}
         >
           <DeleteIcon />
         </IconButton>
@@ -189,7 +214,8 @@ const columns: GridColDef[] = [
         />
         <Box/>
 
-      <Button variant="contained" sx={{display: "flex", gap: 2,width : 200}}>
+      <Button variant="contained" sx={{display: "flex", gap: 2,width : 200}} 
+       onClick={() => setOpenDialog(true)}>
         Create Ticket
       </Button>
     </Box>
@@ -216,7 +242,34 @@ const columns: GridColDef[] = [
       disableRowSelectionOnClick
       autoHeight
     />
+    <CreateTicketDialog
+    open={openDialog}
+    onClose={() => setOpenDialog(false)}
+    onTicketCreated= {loadTickets}
+    onSuccess={showSuccess}
+    onError={showError}
+    
+/>
+ <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={() => setSnackbarOpen(false)}
+        anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+        }}
+    >
+        <Alert
+            severity={snackbarSeverity}
+            onClose={() => setSnackbarOpen(false)}
+            variant="filled"
+            sx={{ width: "100%" }}
+        >
+            {snackbarMessage}
+        </Alert>
+    </Snackbar>
   </Box>
+
    
 );
 };
