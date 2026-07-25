@@ -2,7 +2,6 @@ import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { loginUser } from "../../../services/AuthServices";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../../context/AuthContext";
 import { useAuth } from "../../../hooks/useAuth";
 interface LoginFormData {
   email: string;

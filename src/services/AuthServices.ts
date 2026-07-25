@@ -1,4 +1,3 @@
-import { responsiveFontSizes } from "@mui/material";
 import type { LoginRequest } from "../features/auth/types/Auth";
 import api from "../api/axios";
 
