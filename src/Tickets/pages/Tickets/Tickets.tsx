@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
+import { useLocation } from "react-router-dom";
 import type { Ticket } from "../../types/Ticket";
 import { getTickets } from "../../services/TicketService";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import { Box, Typography, Button,InputAdornment,TextField } from "@mui/material";
 import {Chip, Stack, IconButton} from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import { useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search"
 import CreateTicketDialog from "../../components/CreateTicketDialog";
 import { Snackbar, Alert } from "@mui/material";
@@ -33,6 +34,8 @@ const showError = (message: string) => {
     setSnackbarSeverity("error");
     setSnackbarOpen(true);
 };
+
+const navigate = useNavigate();
 const columns: GridColDef[] = [
   {
     field: "id",
@@ -129,31 +132,19 @@ const columns: GridColDef[] = [
     width: 180,
   },
   {
-    field:"Action",
-    headerName:"Action",
-    width: 180,
-    renderCell :()=>{
-   return (
-      <Stack direction="row" spacing={1}>
-        <IconButton
-          color="primary"
-          size="small"
-          onClick={() => console.log("Edit")}
-        >
-          <EditIcon />
-        </IconButton>
-
-        <IconButton
-          color="error"
-          size="small"
-          onClick={() => console.log("Delete")}
-        >
-          <DeleteIcon />
-        </IconButton>
-      </Stack>
-    );
-  }
-  }
+  field: "action",
+  headerName: "Action",
+  width: 120,
+  renderCell: (params) => (
+    <IconButton
+      color="primary"
+      size="small"
+      onClick={() => navigate(`/tickets/${params.row.id}`)}
+    >
+      <VisibilityIcon />
+    </IconButton>
+  )
+}
 ];
     const [tickets, setTickets] = useState<Ticket[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -250,24 +241,7 @@ const columns: GridColDef[] = [
     onError={showError}
     
 />
- <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={3000}
-        onClose={() => setSnackbarOpen(false)}
-        anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
-        }}
-    >
-        <Alert
-            severity={snackbarSeverity}
-            onClose={() => setSnackbarOpen(false)}
-            variant="filled"
-            sx={{ width: "100%" }}
-        >
-            {snackbarMessage}
-        </Alert>
-    </Snackbar>
+
   </Box>
 
    
