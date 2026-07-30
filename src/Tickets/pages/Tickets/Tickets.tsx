@@ -1,15 +1,13 @@
 import { useEffect, useState} from "react";
-import { useLocation } from "react-router-dom";
 import type { Ticket } from "../../types/Ticket";
 import { getTickets } from "../../services/TicketService";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import { Box, Typography, Button,InputAdornment,TextField } from "@mui/material";
-import {Chip, Stack, IconButton} from "@mui/material";
+import {Chip, IconButton} from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search"
 import CreateTicketDialog from "../../components/CreateTicketDialog";
-import { Snackbar, Alert } from "@mui/material";
 
 
 
@@ -21,6 +19,8 @@ export const Tickets = () => {
   const [snackbarSeverity, setSnackbarSeverity] = useState<
     "success" | "error"
 >("success");
+
+console.log(snackbarOpen, snackbarMessage, snackbarSeverity)
 
 
 const showSuccess = (message: string) => {

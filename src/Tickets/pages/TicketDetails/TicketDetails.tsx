@@ -9,7 +9,6 @@ import {
     Box,
     Card,
     CardContent,
-    Chip,
     Divider,
     Stack,
     Button,
@@ -219,9 +218,6 @@ else {
     dateStyle: "medium",
     timeStyle: "short",
 })}
-</Typography>
-<Typography >
-  
 </Typography>
 </Stack>
 <Divider sx={{ my: 3 }} />
